@@ -28,4 +28,20 @@ public class TestClockDriver {
         Assert.assertEquals(minutes, mockTimeSink.getMinutes());
         Assert.assertEquals(seconds, mockTimeSink.getSeconds());
     }
+
+    @Test
+    public void should_multi_observer() {
+        //give
+        mockTimeSource = new MockTimeSource();
+        mockTimeSink = new MockTimeSink();
+        mockTimeSource.registerObserver(mockTimeSink);
+        MockTimeSink mockTimeSink1 = new MockTimeSink();
+        mockTimeSource.registerObserver(mockTimeSink1);
+        //when
+        mockTimeSource.setTime(3, 4, 5);
+        //then
+        assertSinkEquals(mockTimeSink, 3, 4, 5);
+        assertSinkEquals(mockTimeSink1, 3, 4, 5);
+
+    }
 }
