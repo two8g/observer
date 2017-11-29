@@ -1,5 +1,5 @@
 public interface TimeSource {
-    void setDriver(ClockDriver driver);
+    void setObserver(ClockObserver observer);
 
     void setTime(int hours, int minutes, int seconds);
 }
