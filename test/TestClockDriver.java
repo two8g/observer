@@ -11,7 +11,7 @@ public class TestClockDriver {
     public void setUp() throws Exception {
         mockTimeSource = new MockTimeSource();
         mockTimeSink = new MockTimeSink();
-        mockTimeSource.setObserver(mockTimeSink);
+        mockTimeSource.registerObserver(mockTimeSink);
     }
 
     @Test

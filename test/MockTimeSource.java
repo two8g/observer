@@ -5,7 +5,7 @@ public class MockTimeSource implements TimeSource {
     private ClockObserver observer;
 
     @Override
-    public void setObserver(ClockObserver observer) {
+    public void registerObserver(ClockObserver observer) {
         this.observer = observer;
     }
 
