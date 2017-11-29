@@ -1,20 +1,31 @@
 import org.junit.Assert;
+import org.junit.Before;
 import org.junit.Test;
 
 public class TestClockDriver {
+
+    private MockTimeSource mockTimeSource;
+    private MockTimeSink mockTimeSink;
+
+    @Before
+    public void setUp() throws Exception {
+        mockTimeSource = new MockTimeSource();
+        mockTimeSink = new MockTimeSink();
+        mockTimeSource.setObserver(mockTimeSink);
+    }
+
     @Test
     public void testTimeChange() {
-        MockTimeSource mockTimeSource = new MockTimeSource();
-        MockTimeSink mockTimeSink = new MockTimeSink();
-        mockTimeSource.setObserver(mockTimeSink);
         mockTimeSource.setTime(3, 4, 5);
-        Assert.assertEquals(3, mockTimeSink.getHours());
-        Assert.assertEquals(4, mockTimeSink.getMinutes());
-        Assert.assertEquals(5, mockTimeSink.getSeconds());
+        assertSinkEquals(mockTimeSink, 3, 4, 5);
 
         mockTimeSource.setTime(7, 8, 9);
-        Assert.assertEquals(7, mockTimeSink.getHours());
-        Assert.assertEquals(8, mockTimeSink.getMinutes());
-        Assert.assertEquals(9, mockTimeSink.getSeconds());
+        assertSinkEquals(mockTimeSink, 7, 8, 9);
+    }
+
+    private void assertSinkEquals(MockTimeSink mockTimeSink, int hours, int minutes, int seconds) {
+        Assert.assertEquals(hours, mockTimeSink.getHours());
+        Assert.assertEquals(minutes, mockTimeSink.getMinutes());
+        Assert.assertEquals(seconds, mockTimeSink.getSeconds());
     }
 }
