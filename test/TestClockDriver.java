@@ -6,7 +6,7 @@ public class TestClockDriver {
     public void testTimeChange() {
         MockTimeSource mockTimeSource = new MockTimeSource();
         MockTimeSink mockTimeSink = new MockTimeSink();
-        ClockDriver clockDriver = new ClockDriver(mockTimeSource, mockTimeSink);
+        mockTimeSource.setObserver(mockTimeSink);
         mockTimeSource.setTime(3, 4, 5);
         Assert.assertEquals(3, mockTimeSink.getHours());
         Assert.assertEquals(4, mockTimeSink.getMinutes());
